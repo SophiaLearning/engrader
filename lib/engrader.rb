@@ -1,5 +1,10 @@
+require 'httparty'
 require "engrader/version"
+require "engrader/config"
+require "engrader/http"
 
 module Engrader
-  # Your code goes here...
+  module Errors
+    class UnsuccessfullRequest < Exception; end
+  end
 end
