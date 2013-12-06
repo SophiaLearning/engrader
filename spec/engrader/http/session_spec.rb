@@ -1,29 +1,29 @@
 require 'spec_helper'
 
 describe Engrader::Http::Session do
-  it 'must be an Engrader::Http::Base' do
-    subject.should be_an(Engrader::Http::Base)
-  end
+  let(:session) { Engrader::Http::Session.new }
 
   describe '#ses' do
-    let(:pwd)     { 'password' }
-    let(:usr)     { 'Johndoe' }
-    let(:apikey)  { 'apikey' }
-    let(:api_url) { 'http://test.test' }
+    before { session.stub get_ses: 'ses-value' }
 
-
-    before :each do
-      Engrader::Config.instance_variable_set '@config', {
-        'apikey' => apikey, 'api_url' => api_url, 'usr' => usr, 'pwd' => pwd,
-      }
+    it 'calls for #get_ses' do
+      session.should_receive(:get_ses).and_return 'ses-value'
+      session.ses
     end
-    after { Engrader::Config.instance_variable_set '@config', {} }
 
-    it 'gets ses from engrade' do
-      Engrader::Http::Session.posted.should include([
-        Engrader::Config.api_url,
-        { apitask: 'login', usr: usr, pwd: pwd, apikey: apikey }
-      ])
+    it 'memoize ses' do
+      result = session.ses
+      session.instance_variable_get('@ses').should == result
+    end
+  end
+
+  describe '#get_ses' do
+    it 'get response from correct request' do
+      Engrader::Http::Request::Login.should_receive(:response)
+      session.__send__ :get_ses
+    end
+
+    it 'returns ses from response' do
     end
   end
 end

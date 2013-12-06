@@ -1,5 +1,5 @@
 module Engrader::Http
-  class Session < Base
+  class Session
     attr_reader :ses
 
     def ses
@@ -9,11 +9,7 @@ module Engrader::Http
     private
 
     def get_ses
-      Session.post Engrader::Config.api_url,
-        apitask: 'login',
-        usr:     Engrader::Config.usr,
-        pwd:     Engrader::Config.pwd,
-        apikey:  Engrader::Config.apikey
+      Engrader::Http::Request::Login.response
     end
   end
 end

@@ -1,12 +1,18 @@
 module Engrader::Http
   class Base
-    include HTTParty
+    class << self
+      def post(*args)
+        verify_response { HTTParty.post(*args) }
+      end
 
-    def self.verify_response
-      yield.tap do |response|
-        if !response.parsed_response["engrade"].is_a?(Hash) ||
-          response.parsed_response["engrade"]["success"] != 'true'
-          raise Engrader::Errors::UnsuccessfullRequest
+      private
+
+      def verify_response
+        yield.tap do |response|
+          if !response.parsed_response["engrade"].is_a?(Hash) ||
+            response.parsed_response["engrade"]["success"] != 'true'
+            raise Engrader::Errors::UnsuccessfullRequest
+          end
         end
       end
     end
