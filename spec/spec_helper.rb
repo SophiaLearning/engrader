@@ -30,7 +30,7 @@ module HttpartyMock
       @args = args
     end
 
-    def parsed_response
+    def to_h
       { "engrade" => { "success" => "true" } }.merge(@args)
     end
   end

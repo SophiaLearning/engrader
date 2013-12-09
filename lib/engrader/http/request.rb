@@ -2,8 +2,8 @@ module Engrader::Http
   class Request
     INTERFACE = %w(params apitask)
 
-    def self.response
-      new.response
+    def self.response(*args)
+      new(*args).response
     end
 
     def response

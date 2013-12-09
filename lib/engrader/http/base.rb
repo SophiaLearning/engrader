@@ -9,8 +9,8 @@ module Engrader::Http
 
       def verify_response
         yield.tap do |response|
-          if !response.parsed_response["engrade"].is_a?(Hash) ||
-            response.parsed_response["engrade"]["success"] != 'true'
+          if !response.to_h["engrade"].is_a?(Hash) ||
+            response.to_h["engrade"]["success"] != 'true'
             raise Engrader::Errors::UnsuccessfullRequest
           end
         end
