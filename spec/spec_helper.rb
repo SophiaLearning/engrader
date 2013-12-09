@@ -35,4 +35,3 @@ module HttpartyMock
     end
   end
 end
-
