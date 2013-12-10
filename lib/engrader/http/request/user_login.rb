@@ -1,5 +1,5 @@
 module Engrader::Http
-  class Request::Login < Request
+  class Request::UserLogin < Request
     class Invalid < Exception; end
 
     def initialize(args = {})
@@ -7,11 +7,11 @@ module Engrader::Http
     end
 
     def apitask
-      'login'
+      'user-login'
     end
 
     def params
-      { usr: usr, pwd: pwd, apikey: Engrader::Config.apikey }
+      { usr: usr, pwd: pwd }
     end
 
     private

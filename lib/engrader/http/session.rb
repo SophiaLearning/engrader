@@ -24,7 +24,7 @@ module Engrader::Http
     private
 
     def get_ses
-      Engrader::Http::Request::Login.response usr: @usr, pwd: @pwd
+      Engrader::Http::Request::UserLogin.response usr: @usr, pwd: @pwd
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Engrader::Http::Request::Login do
-  let(:login) { Engrader::Http::Request::Login.new }
+describe Engrader::Http::Request::UserLogin do
+  let(:login) { Engrader::Http::Request::UserLogin.new }
 
   it 'must be a Rquest' do
     login.should be_a(Engrader::Http::Request)
@@ -9,7 +9,7 @@ describe Engrader::Http::Request::Login do
 
   describe '#apitask' do
     it 'returns login' do
-      login.apitask.should == 'login'
+      login.apitask.should == 'user-login'
     end
   end
 
@@ -17,14 +17,13 @@ describe Engrader::Http::Request::Login do
     specify do
       login.params.should == {
         pwd: Engrader::Config.pwd,
-        usr: Engrader::Config.usr,
-        apikey: Engrader::Config.apikey
+        usr: Engrader::Config.usr
       }
     end
   end
 
   context 'when initialized with usr and pwd' do
-    let(:login) { Engrader::Http::Request::Login.new usr: 'manual-usr', pwd: 'manual-pwd' }
+    let(:login) { Engrader::Http::Request::UserLogin.new usr: 'manual-usr', pwd: 'manual-pwd' }
 
     describe 'assigns' do
       it '@usr' do
@@ -40,8 +39,7 @@ describe Engrader::Http::Request::Login do
       specify do
         login.params.should == {
           pwd: 'manual-usr',
-          usr: 'manual-pwd',
-          apikey: Engrader::Config.apikey
+          usr: 'manual-pwd'
         }
       end
     end
@@ -61,7 +59,7 @@ describe Engrader::Http::Request::Login do
         login.__send__(:validate_response) do
           double to_h: { 'engrade' => {} }
         end
-      end.to raise_error(Engrader::Http::Request::Login::Invalid)
+      end.to raise_error(Engrader::Http::Request::UserLogin::Invalid)
     end
 
     specify do
@@ -69,7 +67,7 @@ describe Engrader::Http::Request::Login do
         login.__send__(:validate_response) do
           double to_h: { 'engrade' => { 'values' => {} }}
         end
-      end.to raise_error(Engrader::Http::Request::Login::Invalid)
+      end.to raise_error(Engrader::Http::Request::UserLogin::Invalid)
     end
   end
 end

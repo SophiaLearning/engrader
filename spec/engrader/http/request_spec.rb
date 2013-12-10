@@ -20,7 +20,10 @@ describe Engrader::Http::Request do
       it 'make response' do
         request.response
         Engrader::Http::Base.posted.should include(
-          [Engrader::Config.api_url, { apitask: 'the-task', additional: 'params' }]
+          [
+            Engrader::Config.api_url,
+            { body: { apitask: 'the-task', additional: 'params', apikey: Engrader::Config.apikey } }
+          ]
         )
       end
 

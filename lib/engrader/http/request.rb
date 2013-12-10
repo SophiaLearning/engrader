@@ -7,11 +7,10 @@ module Engrader::Http
     end
 
     def response
-      callable = -> { Base.post Engrader::Config.api_url, { apitask: apitask }.merge(params) }
       if Engrader::Config.debug_mode
-        callable.call
+        request
       else
-        validate_response { callable.call }
+        validate_response { request }
       end
     end
 
@@ -27,6 +26,13 @@ module Engrader::Http
 
     private
 
+    def request
+      Base.post Engrader::Config.api_url, body: {
+        apitask: apitask,
+        apikey: Engrader::Config.apikey
+      }.merge(params)
+    end
+
     def ses
       Session.ses
     end
@@ -38,6 +44,6 @@ module Engrader::Http
   end
 end
 
-require 'engrader/http/request/login'
+require 'engrader/http/request/user_login'
 require 'engrader/http/request/default'
 require 'engrader/http/request/app_data_post'
