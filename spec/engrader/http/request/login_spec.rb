@@ -24,7 +24,7 @@ describe Engrader::Http::Request::Login do
   end
 
   context 'when initialized with usr and pwd' do
-    let(:login) { Engrader::Http::Request::Login.new 'manual-usr', 'manual-pwd' }
+    let(:login) { Engrader::Http::Request::Login.new usr: 'manual-usr', pwd: 'manual-pwd' }
 
     describe 'assigns' do
       it '@usr' do

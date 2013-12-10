@@ -68,14 +68,14 @@ describe Engrader::Http::Session do
   describe '#get_ses' do
     context 'with configurable usr and pwd' do
       it 'gets response from correct request' do
-        Engrader::Http::Request::Login.should_receive(:response).with nil, nil
+        Engrader::Http::Request::Login.should_receive(:response).with usr: nil, pwd: nil
         session.__send__ :get_ses
       end
     end
 
     context 'with manual usr and pwd' do
       it 'gets response correctly' do
-        Engrader::Http::Request::Login.should_receive(:response).with 'manual-usr', 'manual-pwd'
+        Engrader::Http::Request::Login.should_receive(:response).with usr: 'manual-usr', pwd: 'manual-pwd'
         manual_session.__send__ :get_ses
       end
     end

@@ -12,6 +12,10 @@ module Engrader::Http
       end
     end
 
+    def response_body
+      response.to_h
+    end
+
     INTERFACE.each do |method_name|
       define_method method_name do
         raise NotImplementedError
@@ -19,6 +23,10 @@ module Engrader::Http
     end
 
     private
+
+    def ses
+      Session.ses
+    end
 
     #no validation by default
     def validate_response

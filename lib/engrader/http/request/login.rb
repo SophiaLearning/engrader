@@ -2,8 +2,8 @@ module Engrader::Http
   class Request::Login < Request
     class Invalid < Exception; end
 
-    def initialize(usr = nil, pwd = nil)
-      @usr, @pwd = usr, pwd
+    def initialize(args = {})
+      @usr, @pwd = args[:usr], args[:pwd]
     end
 
     def apitask

@@ -11,20 +11,40 @@ describe Engrader::Http::Request do
     end
   end
 
-  describe '#response' do
+  context do
     before :each do
       request.stub apitask: 'the-task', params: { additional: 'params' }
     end
 
-    it 'make response' do
-      request.response
-      Engrader::Http::Base.posted.should include(
-        [Engrader::Config.api_url, { apitask: 'the-task', additional: 'params' }]
-      )
+    describe '#response' do
+      it 'make response' do
+        request.response
+        Engrader::Http::Base.posted.should include(
+          [Engrader::Config.api_url, { apitask: 'the-task', additional: 'params' }]
+        )
+      end
+
+      it 'returns repsonse object' do
+        request.response.should be_a(HttpartyMock::Response)
+      end
     end
 
-    it 'returns repsonse object' do
-      request.response.should be_a(HttpartyMock::Response)
+    describe 'response_body' do
+      it 'calls for #response' do
+        request.should_receive(:response).and_return double.as_null_object
+        request.response_body
+      end
+
+      it 'convert response to hash' do
+        request.response_body.should == request.response.to_h
+      end
+    end
+  end
+
+  describe '#ses' do
+    it 'calls for Session.ses' do
+      Engrader::Http::Session.should_receive :ses
+      request.__send__ :ses
     end
   end
 end
