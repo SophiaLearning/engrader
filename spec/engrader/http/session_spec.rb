@@ -44,18 +44,11 @@ describe Engrader::Http::Session do
     end
   end
 
-  describe '#ses=' do
-    it 'writes @ses' do
-      session.ses = 'ses-key'
-      session.instance_variable_get('@ses').should == 'ses-key'
-    end
-  end
-
   describe '#ses' do
-    before { session.stub get_ses: double(to_h: {'engrade' => { 'values' => 'ses' }}) }
+    before { session.stub get_ses: {'engrade' => { 'values' => 'ses' }} }
 
     it 'calls for #get_ses' do
-      session.should_receive(:get_ses).and_return double(to_h: {'engrade' => { 'values' => 'ses' }})
+      session.should_receive(:get_ses).and_return 'engrade' => { 'values' => 'ses' }
       session.ses
     end
 
@@ -82,7 +75,7 @@ describe Engrader::Http::Session do
 
     it 'returns ses from response' do
       Engrader::Http::Base.response_args = { "engrade" => { "success" => "true", "values" => { "ses" => 'ses' } } }
-      session.__send__(:get_ses).should be_a(HttpartyMock::Response)
+      session.__send__(:get_ses).should be_a(Hash)
     end
   end
 end

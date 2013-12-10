@@ -3,12 +3,15 @@ module Engrader::Http
     INTERFACE = %w(params apitask)
 
     def self.response(*args)
-      new(*args).response
+      new(*args).response_body
     end
 
     def response
-      validate_response do
-        Base.post Engrader::Config.api_url, { apitask: apitask }.merge(params)
+      callable = -> { Base.post Engrader::Config.api_url, { apitask: apitask }.merge(params) }
+      if Engrader::Config.debug_mode
+        callable.call
+      else
+        validate_response { callable.call }
       end
     end
 
@@ -36,3 +39,5 @@ module Engrader::Http
 end
 
 require 'engrader/http/request/login'
+require 'engrader/http/request/default'
+require 'engrader/http/request/app_data_post'

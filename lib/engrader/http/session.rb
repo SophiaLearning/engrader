@@ -1,7 +1,5 @@
 module Engrader::Http
   class Session
-    attr_writer :ses
-
     class << self
       def ses=(ses)
         Thread.current[:engrader_api_ses] = ses
@@ -20,13 +18,13 @@ module Engrader::Http
     end
 
     def ses
-      @ses ||= get_ses.to_h["engrade"]["values"]["ses"]
+      @ses ||= get_ses["engrade"]["values"]["ses"]
     end
 
     private
 
     def get_ses
-      Engrader::Http::Request::Login.response(usr: @usr, pwd: @pwd)
+      Engrader::Http::Request::Login.response usr: @usr, pwd: @pwd
     end
   end
 end

@@ -1,4 +1,8 @@
 module Engrader
+  def self.app_data_post(appsesid, data)
+    Http::Request::AppDataPost.response appsesid: appsesid, data: data
+  end
+
   module Errors
     class UnsuccessfullRequest < Exception; end
   end
