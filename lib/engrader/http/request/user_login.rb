@@ -14,12 +14,20 @@ module Engrader::Http
       { usr: usr, pwd: pwd }
     end
 
+    def response
+      validate_response { super }
+    end
+
     private
 
     def validate_response
-      yield.tap do |resp|
-        if !resp.to_h["engrade"]["values"].is_a?(Hash) || resp.to_h["engrade"]["values"]["ses"].nil?
-          raise Invalid
+      if Engrader::Config.debug_mode
+        yield
+      else
+        yield.tap do |resp|
+          if !resp.to_h["engrade"]["values"].is_a?(Hash) || resp.to_h["engrade"]["values"]["ses"].nil?
+            raise Invalid
+          end
         end
       end
     end

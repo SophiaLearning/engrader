@@ -1,6 +1,11 @@
 module Engrader::Http
   class Session
     class << self
+
+      #Pay attention where we store ses.
+      #It means that if you use Engrader in controller
+      #session would be initialized for every worker.
+      #(For every ruby thread)
       def ses=(ses)
         Thread.current[:engrader_api_ses] = ses
       end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Engrader::Http::Request::Default do
-
   def default(*args)
     Engrader::Http::Request::Default.new(*args)
   end
@@ -27,7 +26,7 @@ describe Engrader::Http::Request::Default do
       end
 
       it '@params' do
-        def_req.params.should == { other: 'other', ses: 'ses' }
+        def_req.params.should == { other: 'other' }
       end
     end
   end

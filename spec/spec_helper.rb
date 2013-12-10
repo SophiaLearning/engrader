@@ -35,3 +35,12 @@ module HttpartyMock
     end
   end
 end
+RSpec.configure do |config|
+  config.before :each, type: 'with_mock_ses' do
+    Engrader::Http::Session.ses = 'ses'
+  end
+
+  config.after :each, type: 'with_mock_ses' do
+    Engrader::Http::Session.ses = nil
+  end
+end

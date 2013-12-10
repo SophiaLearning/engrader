@@ -7,11 +7,10 @@ module Engrader::Http
     end
 
     def response
-      if Engrader::Config.debug_mode
-        request
-      else
-        validate_response { request }
-      end
+      Base.post Engrader::Config.api_url, body: {
+        apitask: apitask,
+        apikey: Engrader::Config.apikey
+      }.merge(params)
     end
 
     def response_body
@@ -19,27 +18,13 @@ module Engrader::Http
     end
 
     INTERFACE.each do |method_name|
-      define_method method_name do
-        raise NotImplementedError
-      end
+      define_method(method_name) { raise NotImplementedError }
     end
 
     private
 
-    def request
-      Base.post Engrader::Config.api_url, body: {
-        apitask: apitask,
-        apikey: Engrader::Config.apikey
-      }.merge(params)
-    end
-
     def ses
       Session.ses
-    end
-
-    #no validation by default
-    def validate_response
-      yield
     end
   end
 end
@@ -47,3 +32,9 @@ end
 require 'engrader/http/request/user_login'
 require 'engrader/http/request/default'
 require 'engrader/http/request/app_data_post'
+require 'engrader/http/request/app'
+require 'engrader/http/request/admin_districts'
+require 'engrader/http/request/district_schools'
+require 'engrader/http/request/school_base'
+require 'engrader/http/request/school_gps'
+require 'engrader/http/request/school_teachers'
