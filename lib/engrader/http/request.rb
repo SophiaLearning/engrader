@@ -7,7 +7,7 @@ module Engrader::Http
     end
 
     def response
-      Base.post Engrader::Config.api_url, body: {
+      Base.post Engrader::Config.api_url, headers: headers, body: {
         apitask: apitask,
         apikey: Engrader::Config.apikey
       }.merge(params)
@@ -22,6 +22,12 @@ module Engrader::Http
     end
 
     private
+
+    def headers
+      head = {}
+      head['referer'] = Engrader::Config.referer
+      head.reject { |k, v| v.nil? }
+    end
 
     def ses
       Session.ses

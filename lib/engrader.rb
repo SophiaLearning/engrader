@@ -1,5 +1,5 @@
 module Engrader
-  def self.app_data_post(data, appsesid = Engrader::Config.appsesid)
+  def self.app_data_post(data, appsesid)
     Http::Request::AppDataPost.response appsesid: appsesid, data: data
   end
 
