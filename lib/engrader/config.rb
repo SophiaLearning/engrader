@@ -1,6 +1,6 @@
 module Engrader
   class Config
-    CONFIGURABLE = %w(apikey usr pwd api_url debug_mode)
+    CONFIGURABLE = %w(apikey usr pwd api_url debug_mode appsesid)
     @config = {}
 
     class << self
