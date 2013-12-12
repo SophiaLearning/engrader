@@ -28,6 +28,7 @@ module Engrader
   end
 end
 
+require 'json'
 require 'httparty'
 require "engrader/version"
 require "engrader/config"

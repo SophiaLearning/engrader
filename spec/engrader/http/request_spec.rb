@@ -22,7 +22,10 @@ describe Engrader::Http::Request do
         Engrader::Http::Base.posted.should include(
           [
             Engrader::Config.api_url,
-            { body: { apitask: 'the-task', additional: 'params', apikey: Engrader::Config.apikey } }
+            {
+              body: { apitask: 'the-task', additional: 'params', apikey: Engrader::Config.apikey },
+              headers: {}
+            }
           ]
         )
       end

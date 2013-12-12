@@ -45,7 +45,7 @@ describe Engrader::Http::Request::AppDataPost do
     specify do
       app_data_post.params.should == {
         appsesid: appsesid,
-        data: data
+        data: JSON.generate(data)
       }
     end
   end

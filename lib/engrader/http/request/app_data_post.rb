@@ -11,7 +11,7 @@ module Engrader::Http
     end
 
     def params
-      { appsesid: @appsesid, data: @data }
+      { appsesid: @appsesid, data: JSON.generate(@data) }
     end
   end
 end
