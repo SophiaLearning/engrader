@@ -7,14 +7,21 @@ module Engrader::Http
     end
 
     def response
-      Base.post Engrader::Config.api_url, headers: headers, body: {
-        apitask: apitask,
-        apikey: Engrader::Config.apikey
-      }.merge(params)
+      Base.post Engrader::Config.api_url, headers: request_headers, body: request_body
     end
 
     def response_body
       response.to_h
+    end
+
+    def request_body
+      { apitask: apitask, apikey: Engrader::Config.apikey }.merge(params)
+    end
+
+    def request_headers
+      head = {}
+      head['referer'] = Engrader::Config.referer
+      head.reject { |k, v| v.nil? }
     end
 
     INTERFACE.each do |method_name|
@@ -22,12 +29,6 @@ module Engrader::Http
     end
 
     private
-
-    def headers
-      head = {}
-      head['referer'] = Engrader::Config.referer
-      head.reject { |k, v| v.nil? }
-    end
 
     def ses
       Session.ses
