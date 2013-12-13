@@ -3,6 +3,10 @@ module Engrader
     Http::Request::AppDataPost.response appsesid: appsesid, data: data
   end
 
+  def self.app_data_post_request(data, appsesid)
+    Http::Request::AppDataPost.new appsesid: appsesid, data: data
+  end
+
   def self.app
     Http::Request::App.response
   end
