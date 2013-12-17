@@ -1,29 +1,26 @@
 # Engrader
-
-TODO: Write a gem description
-
+Ruby wrapper for Engrader API
 ## Installation
-
 Add this line to your application's Gemfile:
-
-    gem 'engrader'
-
+    gem 'engrader', git: 'git://github.com/SophiaLearning/engrader'
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install engrader
-
 ## Usage
+  Create engrader initializer and configure following properties of the gem:
+  ```ruby
+    Engrader::Config.apikey     = 'your apikey'
+    Engrader::Config.usr        = 'engrader user'
+    Engrader::Config.pwd        = 'engrader password'
+    Engrader::Config.api_url    = 'url for api calls'
+    Engrader::Config.debug_mode = 'do not raise exception when response is unsuccessfull'
+    Engrader::Config.referer    = 'http://referer'
+  ```
 
-TODO: Write usage instructions here
+  Then run requests you needed:
 
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+  ```ruby
+    Engrader.app
+    Engrader.admin_districts
+    #and etc.
+  ```
