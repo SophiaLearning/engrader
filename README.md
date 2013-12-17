@@ -1,5 +1,5 @@
 # Engrader
-Ruby wrapper for Engrader API
+Ruby wrapper for Engrader API https://engradestage.com/docs/index.html
 ## Usage
   Create engrader initializer and configure following properties of the gem:
   ```ruby
