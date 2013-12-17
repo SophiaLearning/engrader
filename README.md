@@ -1,11 +1,5 @@
 # Engrader
 Ruby wrapper for Engrader API
-## Installation
-Add this line to your application's Gemfile:
-    gem 'engrader', git: 'git://github.com/SophiaLearning/engrader'
-And then execute:
-
-    $ bundle
 ## Usage
   Create engrader initializer and configure following properties of the gem:
   ```ruby
